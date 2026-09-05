@@ -1,944 +1,382 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SkyVoyage Global | All-in-One Flight, Hotel & Travel Portal</title>
+  <title>SkyVoyage Travels - Flights, Hotels & Tours</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
-  <!-- Top Security Strip -->
-  <div class="bg-slate-900 text-white text-[11px] py-1.5 px-4 text-center font-medium flex items-center justify-center gap-4">
-    <span class="flex items-center gap-1 text-emerald-400 font-bold"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> 256-Bit Bank Grade Encryption</span>
-    <span class="hidden sm:inline text-slate-500">•</span>
-    <span>Special Defence, Student & Corporate Concessions Live</span>
-  </div>
-
-  <!-- Primary Top Navbar -->
-  <header class="bg-white sticky top-0 z-40 border-b border-slate-100 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <!-- Upper Nav Row: Brand + Controls + Auth -->
-      <div class="h-20 flex items-center justify-between border-b border-slate-100">
-        
-        <!-- Brand Logo -->
-        <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchMainTab('flights')">
-          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-600 to-blue-700 flex items-center justify-center text-white shadow-md">
-            <i data-lucide="plane-takeoff" class="w-6 h-6"></i>
-          </div>
-          <div>
-            <span class="text-2xl font-black tracking-tight text-slate-900 leading-none">Sky<span class="text-sky-600">Voyage</span></span>
-            <span class="block text-[10px] uppercase font-bold text-slate-400 tracking-widest mt-0.5" id="brandSubtitle">All India Airline E-Ticketing</span>
-          </div>
+  <!-- TOP HEADER -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="bg-blue-600 text-white p-2 rounded-xl flex items-center justify-center shadow-md shadow-blue-500/20">
+          <i data-lucide="plane-takeoff" class="w-6 h-6"></i>
         </div>
-
-        <!-- Right Side Nav Items -->
-        <div class="flex items-center gap-3">
-          
-          <div id="authNavButtons" class="flex items-center gap-2">
-            <button onclick="openAuthModal('customer')" class="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold px-3.5 py-2.5 rounded-xl shadow transition">
-              <i data-lucide="user" class="w-4 h-4 text-emerald-400"></i>
-              <span>Customer Login</span>
-            </button>
-
-            <button onclick="openAuthModal('agency')" class="flex items-center gap-1.5 bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-700 text-white text-xs font-extrabold px-3.5 py-2.5 rounded-xl shadow-md transition">
-              <i data-lucide="building-2" class="w-4 h-4"></i>
-              <span>Agent Portal</span>
-            </button>
-          </div>
-
-          <div id="userProfilePill" class="hidden items-center gap-2.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-2xl">
-            <div class="text-right">
-              <div class="text-xs font-black text-slate-900" id="profileNameDisplay">User</div>
-              <div class="text-[10px] font-bold text-emerald-600" id="profileRoleDisplay">Active</div>
-            </div>
-            <button onclick="logoutUser()" title="Logout" class="p-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl transition">
-              <i data-lucide="log-out" class="w-4 h-4"></i>
-            </button>
-          </div>
-
-          <a href="https://wa.me/919077777037" target="_blank" class="hidden sm:flex items-center gap-1.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 text-xs font-bold px-3 py-2.5 rounded-xl border border-emerald-200 transition">
-            <i data-lucide="message-square" class="w-4 h-4"></i> 24x7 Help
-          </a>
-
-          <!-- More Services Drawer Trigger Button -->
-          <button onclick="openServicesDrawer()" class="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-black px-3.5 py-2.5 rounded-xl border border-slate-200 transition">
-            <i data-lucide="menu" class="w-4 h-4"></i>
-            <span class="hidden sm:inline">More</span>
-          </button>
-
+        <div>
+          <span class="text-xl font-black tracking-tight text-slate-900">Sky<span class="text-blue-600">Voyage</span></span>
+          <span class="hidden sm:inline-block ml-2 text-xs font-semibold px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full border border-blue-200">DGCA Authorized</span>
         </div>
       </div>
 
-      <!-- Category Strip (All 11 Categories) -->
-      <nav class="flex items-center gap-4 sm:gap-7 overflow-x-auto no-scrollbar py-2.5 text-xs font-bold text-slate-600" id="mainNavCategoryStrip">
-        
-        <button onclick="switchMainTab('flights')" id="navTab_flights" class="nav-service-tab flex flex-col items-center gap-1 text-sky-600 border-b-2 border-sky-600 pb-1 flex-shrink-0">
-          <div class="w-8 h-8 rounded-full bg-sky-50 flex items-center justify-center"><i data-lucide="plane" class="w-4 h-4 text-sky-600"></i></div>
-          <span class="text-[11px] font-extrabold">Flights</span>
+      <div class="flex items-center space-x-3">
+        <button onclick="toggleModal('loginModal')" class="px-4 py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition">
+          <i data-lucide="user" class="w-4 h-4 inline-block mr-1"></i> Customer Login
         </button>
-
-        <button onclick="switchMainTab('hotels')" id="navTab_hotels" class="nav-service-tab flex flex-col items-center gap-1 hover:text-sky-600 pb-1 flex-shrink-0 text-slate-500">
-          <div class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center"><i data-lucide="hotel" class="w-4 h-4"></i></div>
-          <span class="text-[11px]">Hotels</span>
+        <button onclick="toggleModal('agentModal')" class="px-4 py-2 text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 rounded-lg transition shadow-sm flex items-center">
+          <i data-lucide="briefcase" class="w-4 h-4 mr-1.5"></i> Agent Portal
         </button>
-
-        <button onclick="switchMainTab('villas')" id="navTab_villas" class="nav-service-tab flex flex-col items-center gap-1 hover:text-sky-600 pb-1 flex-shrink-0 text-slate-500">
-          <div class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center"><i data-lucide="home" class="w-4 h-4"></i></div>
-          <span class="text-[11px]">Villas & Stays</span>
-        </button>
-
-        <button onclick="switchMainTab('holidays')" id="navTab_holidays" class="nav-service-tab flex flex-col items-center gap-1 hover:text-sky-600 pb-1 flex-shrink-0 text-slate-500">
-          <div class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center"><i data-lucide="palmtree" class="w-4 h-4"></i></div>
-          <span class="text-[11px]">Holidays</span>
-        </button>
-
-        <button onclick="switchMainTab('trains')" id="navTab_trains" class="nav-service-tab flex flex-col items-center gap-1 hover:text-sky-600 pb-1 flex-shrink-0 text-slate-500">
-          <div class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center"><i data-lucide="train" class="w-4 h-4"></i></div>
-          <span class="text-[11px]">Trains</span>
-        </button>
-
-        <button onclick="switchMainTab('buses')" id="navTab_buses" class="nav-service-tab flex flex-col items-center gap-1 hover:text-sky-600 pb-1 flex-shrink-0 text-slate-500">
-          <div class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center"><i data-lucide="bus" class="w-4 h-4"></i></div>
-          <span class="text-[11px]">Buses</span>
-        </button>
-
-        <button onclick="switchMainTab('cabs')" id="navTab_cabs" class="nav-service-tab flex flex-col items-center gap-1 hover:text-sky-600 pb-1 flex-shrink-0 text-slate-500">
-          <div class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center"><i data-lucide="car" class="w-4 h-4"></i></div>
-          <span class="text-[11px]">Cabs</span>
-        </button>
-
-        <button onclick="switchMainTab('visa')" id="navTab_visa" class="nav-service-tab flex flex-col items-center gap-1 hover:text-sky-600 pb-1 flex-shrink-0 text-slate-500">
-          <div class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center"><i data-lucide="file-check-2" class="w-4 h-4"></i></div>
-          <span class="text-[11px]">Visa</span>
-        </button>
-
-        <button onclick="switchMainTab('forex')" id="navTab_forex" class="nav-service-tab flex flex-col items-center gap-1 hover:text-sky-600 pb-1 flex-shrink-0 text-slate-500">
-          <div class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center"><i data-lucide="credit-card" class="w-4 h-4"></i></div>
-          <span class="text-[11px]">Forex Card</span>
-        </button>
-
-        <button onclick="switchMainTab('insurance')" id="navTab_insurance" class="nav-service-tab flex flex-col items-center gap-1 hover:text-sky-600 pb-1 flex-shrink-0 text-slate-500">
-          <div class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center"><i data-lucide="shield-plus" class="w-4 h-4"></i></div>
-          <span class="text-[11px]">Insurance</span>
-        </button>
-
-        <button onclick="openServicesDrawer()" class="flex flex-col items-center gap-1 hover:text-sky-600 pb-1 flex-shrink-0 text-slate-500">
-          <div class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center"><i data-lucide="more-horizontal" class="w-4 h-4"></i></div>
-          <span class="text-[11px] flex items-center">More <i data-lucide="chevron-down" class="w-3 h-3 ml-0.5"></i></span>
-        </button>
-
-      </nav>
-
+      </div>
     </div>
   </header>
 
-  <main class="flex-grow">
-    <!-- Hero Banner -->
-    <div class="relative bg-slate-900 pb-40 pt-16 px-4">
-      <div class="max-w-6xl mx-auto text-center space-y-3">
-        <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" id="heroBadge">
-          <i data-lucide="award" class="w-3.5 h-3.5"></i> Armed Forces • Senior Citizens • Students • Corporate
-        </span>
-        <h1 class="text-3xl sm:text-5xl font-black text-white" id="heroTitle">Book Flights & Download Official E-Tickets</h1>
-        <p class="text-slate-300 text-xs sm:text-sm" id="heroSubtitle">Official DGCA Compliant PDF E-Ticketing with Instant UPI QR Settlement.</p>
-      </div>
+  <!-- CATEGORY NAVIGATION -->
+  <div class="bg-white border-b border-slate-200 py-3 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 overflow-x-auto flex space-x-8 no-scrollbar text-sm font-medium text-slate-600">
+      <a href="#" class="flex items-center space-x-2 text-blue-600 border-b-2 border-blue-600 pb-1 font-semibold">
+        <i data-lucide="plane" class="w-4 h-4"></i> <span>Flights</span>
+      </a>
+      <a href="#" class="flex items-center space-x-2 hover:text-blue-600 transition pb-1">
+        <i data-lucide="hotel" class="w-4 h-4"></i> <span>Hotels</span>
+      </a>
+      <a href="#" class="flex items-center space-x-2 hover:text-blue-600 transition pb-1">
+        <i data-lucide="palmtree" class="w-4 h-4"></i> <span>Holidays</span>
+      </a>
+      <a href="#" class="flex items-center space-x-2 hover:text-blue-600 transition pb-1">
+        <i data-lucide="train" class="w-4 h-4"></i> <span>Trains</span>
+      </a>
+      <a href="#" class="flex items-center space-x-2 hover:text-blue-600 transition pb-1">
+        <i data-lucide="bus" class="w-4 h-4"></i> <span>Buses</span>
+      </a>
+      <a href="#" class="flex items-center space-x-2 hover:text-blue-600 transition pb-1">
+        <i data-lucide="shield-check" class="w-4 h-4"></i> <span>Insurance</span>
+      </a>
+      <a href="#" class="flex items-center space-x-2 hover:text-blue-600 transition pb-1">
+        <i data-lucide="file-text" class="w-4 h-4"></i> <span>Visa Desk</span>
+      </a>
     </div>
+  </div>
 
-    <!-- Active Search Form Container -->
-    <div class="max-w-6xl mx-auto px-4 -mt-28 relative z-30">
-      <div class="bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 md:p-8 space-y-5">
-        
-        <!-- 1. Flights Search Module -->
-        <div id="module_flights" class="space-y-4">
-          <div>
-            <label class="block text-[11px] font-black text-slate-500 uppercase mb-2">Special Fare Category (Select Quota)</label>
-            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2" id="fareCategoryContainer">
-              <button type="button" onclick="selectFareType('regular')" id="fareTab_regular" class="fare-tab border-2 border-sky-600 bg-sky-50/70 p-3 rounded-2xl text-left transition"><div class="text-xs font-black text-sky-900 flex items-center gap-1.5"><i data-lucide="plane" class="w-3.5 h-3.5 text-sky-600"></i> Regular</div><div class="text-[10px] text-slate-500 mt-0.5">Standard Fares</div></button>
-              <button type="button" onclick="selectFareType('armed_forces')" id="fareTab_armed_forces" class="fare-tab border border-slate-200 bg-slate-50 hover:bg-slate-100 p-3 rounded-2xl text-left transition"><div class="text-xs font-black text-slate-800 flex items-center gap-1.5"><i data-lucide="shield" class="w-3.5 h-3.5 text-emerald-600"></i> Armed Forces</div><div class="text-[10px] text-emerald-600 font-bold mt-0.5">Flat ₹600 OFF</div></button>
-              <button type="button" onclick="selectFareType('student')" id="fareTab_student" class="fare-tab border border-slate-200 bg-slate-50 hover:bg-slate-100 p-3 rounded-2xl text-left transition"><div class="text-xs font-black text-slate-800 flex items-center gap-1.5"><i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-indigo-600"></i> Student</div><div class="text-[10px] text-indigo-600 font-bold mt-0.5">+10 Kg Baggage</div></button>
-              <button type="button" onclick="selectFareType('senior_citizen')" id="fareTab_senior_citizen" class="fare-tab border border-slate-200 bg-slate-50 hover:bg-slate-100 p-3 rounded-2xl text-left transition"><div class="text-xs font-black text-slate-800 flex items-center gap-1.5"><i data-lucide="heart" class="w-3.5 h-3.5 text-rose-600"></i> Senior Citizen</div><div class="text-[10px] text-rose-600 font-bold mt-0.5">Flat ₹450 OFF</div></button>
-              <button type="button" onclick="selectFareType('corporate')" id="fareTab_corporate" class="fare-tab border border-slate-200 bg-slate-50 hover:bg-slate-100 p-3 rounded-2xl text-left transition"><div class="text-xs font-black text-slate-800 flex items-center gap-1.5"><i data-lucide="briefcase" class="w-3.5 h-3.5 text-amber-600"></i> Corporate</div><div class="text-[10px] text-amber-600 font-bold mt-0.5">Free Meal + Flexi</div></button>
-            </div>
+  <!-- HERO & SEARCH SECTION -->
+  <main class="flex-grow">
+    <div class="bg-gradient-to-b from-blue-900 via-blue-800 to-indigo-950 text-white py-12 px-4 sm:px-6 relative overflow-hidden">
+      <div class="max-w-6xl mx-auto relative z-10">
+        <div class="text-center mb-8">
+          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Search Cheap Flights & Special Fares</h1>
+          <p class="text-blue-200 mt-2 text-sm sm:text-base">Official DGCA Compliant Instant E-Ticketing with Direct UPI QR Settlement.</p>
+        </div>
+
+        <!-- SEARCH FORM CARD -->
+        <div class="glass-card text-slate-800 rounded-2xl p-6 shadow-2xl border border-white/20">
+          <!-- Quotas -->
+          <div class="flex flex-wrap gap-4 mb-5 text-xs font-semibold">
+            <label class="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg cursor-pointer transition">
+              <input type="radio" name="quota" value="regular" checked class="text-blue-600 focus:ring-0">
+              <span>Regular Fare</span>
+            </label>
+            <label class="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg cursor-pointer transition">
+              <input type="radio" name="quota" value="defence" class="text-blue-600 focus:ring-0">
+              <span>Armed Forces (Flat ₹600 OFF)</span>
+            </label>
+            <label class="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg cursor-pointer transition">
+              <input type="radio" name="quota" value="student" class="text-blue-600 focus:ring-0">
+              <span>Student (+10 Kg Baggage)</span>
+            </label>
+            <label class="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg cursor-pointer transition">
+              <input type="radio" name="quota" value="senior" class="text-blue-600 focus:ring-0">
+              <span>Senior Citizen (Flat ₹450 OFF)</span>
+            </label>
           </div>
 
-          <form onsubmit="executeLiveFlightSearch(event)" class="grid grid-cols-1 md:grid-cols-4 gap-3">
-            <div class="bg-slate-50 border rounded-2xl p-3">
-              <label class="block text-[10px] font-bold text-slate-400 uppercase">From</label>
-              <select id="flightFrom" class="w-full bg-transparent font-bold text-slate-800 text-sm focus:outline-none mt-1">
-                <option value="GAU">Guwahati (GAU) - Assam</option>
-                <option value="DMU">Dimapur (DMU) - Nagaland</option>
-                <option value="DEL">Delhi (DEL) - IGI</option>
-                <option value="BOM">Mumbai (BOM) - CSIA</option>
+          <form id="flightSearchForm" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">From</label>
+              <div class="relative">
+                <i data-lucide="map-pin" class="w-4 h-4 absolute left-3 top-3.5 text-slate-400"></i>
+                <input type="text" id="flightFrom" value="GAU" required class="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-bold uppercase text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition" placeholder="City or Airport (e.g. GAU)">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">To</label>
+              <div class="relative">
+                <i data-lucide="plane-landing" class="w-4 h-4 absolute left-3 top-3.5 text-slate-400"></i>
+                <input type="text" id="flightTo" value="DEL" required class="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-bold uppercase text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition" placeholder="City or Airport (e.g. DEL)">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Departure Date</label>
+              <input type="date" id="flightDate" required class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-semibold text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Passengers</label>
+              <select id="flightPax" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-semibold text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition">
+                <option value="1">1 Passenger (Economy)</option>
+                <option value="2">2 Passengers</option>
+                <option value="3">3 Passengers</option>
+                <option value="4">4+ Group Booking</option>
               </select>
             </div>
-            <div class="bg-slate-50 border rounded-2xl p-3">
-              <label class="block text-[10px] font-bold text-slate-400 uppercase">To</label>
-              <select id="flightTo" class="w-full bg-transparent font-bold text-slate-800 text-sm focus:outline-none mt-1">
-                <option value="DEL" selected>Delhi (DEL) - IGI</option>
-                <option value="BOM">Mumbai (BOM) - CSIA</option>
-                <option value="GAU">Guwahati (GAU) - Assam</option>
-              </select>
+
+            <div class="md:col-span-4 mt-2">
+              <button type="submit" id="btnFlightSearch" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center justify-center space-x-2 text-base">
+                <i data-lucide="search" class="w-5 h-5"></i>
+                <span>Search Available Flights</span>
+              </button>
             </div>
-            <div class="bg-slate-50 border rounded-2xl p-3">
-              <label class="block text-[10px] font-bold text-slate-400 uppercase">Date</label>
-              <input id="flightDate" type="date" required class="w-full bg-transparent font-bold text-slate-800 text-sm focus:outline-none mt-1">
-            </div>
-            <div class="bg-slate-50 border rounded-2xl p-3">
-              <label class="block text-[10px] font-bold text-slate-400 uppercase">Passengers</label>
-              <input id="flightPax" type="number" min="1" max="9" value="1" class="w-full bg-transparent font-bold text-slate-800 text-sm focus:outline-none mt-1">
-            </div>
-            <button type="submit" id="btnFlightSearch" class="md:col-span-4 w-full bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-700 text-white font-extrabold py-3.5 rounded-2xl shadow-lg flex items-center justify-center gap-2">
-              <i data-lucide="search" class="w-5 h-5"></i> Search Available Flights
-            </button>
           </form>
         </div>
-
-        <!-- 2. Hotel Search Module -->
-        <div id="module_hotels" class="space-y-4 hidden">
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
-            <div class="bg-slate-50 border rounded-2xl p-3">
-              <label class="block text-[10px] font-bold text-slate-400 uppercase">City / Location</label>
-              <input id="hotelCityInput" type="text" value="Goa" placeholder="e.g. Goa, Manali, Jaipur" class="w-full bg-transparent font-bold text-slate-800 text-sm focus:outline-none mt-1">
-            </div>
-            <div class="bg-slate-50 border rounded-2xl p-3">
-              <label class="block text-[10px] font-bold text-slate-400 uppercase">Check-In</label>
-              <input id="hotelIn" type="date" class="w-full bg-transparent font-bold text-slate-800 text-sm focus:outline-none mt-1">
-            </div>
-            <div class="bg-slate-50 border rounded-2xl p-3">
-              <label class="block text-[10px] font-bold text-slate-400 uppercase">Check-Out</label>
-              <input id="hotelOut" type="date" class="w-full bg-transparent font-bold text-slate-800 text-sm focus:outline-none mt-1">
-            </div>
-            <div class="bg-slate-50 border rounded-2xl p-3">
-              <label class="block text-[10px] font-bold text-slate-400 uppercase">Guests</label>
-              <input type="text" value="2 Adults • 1 Room" class="w-full bg-transparent font-bold text-slate-800 text-sm focus:outline-none mt-1">
-            </div>
-            <button onclick="loadHotelInventory()" class="md:col-span-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-3.5 rounded-2xl shadow-lg flex items-center justify-center gap-2">
-              <i data-lucide="hotel" class="w-5 h-5"></i> Search 50,000+ Verified Hotels & Resorts
-            </button>
-          </div>
-        </div>
-
-        <!-- 3. Trains Search Module -->
-        <div id="module_trains" class="space-y-4 hidden">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div class="bg-slate-50 border rounded-2xl p-3">
-              <label class="block text-[10px] font-bold text-slate-400 uppercase">From Station</label>
-              <input type="text" value="Guwahati (GHY)" class="w-full bg-transparent font-bold text-slate-800 text-sm focus:outline-none mt-1">
-            </div>
-            <div class="bg-slate-50 border rounded-2xl p-3">
-              <label class="block text-[10px] font-bold text-slate-400 uppercase">To Station</label>
-              <input type="text" value="New Delhi (NDLS)" class="w-full bg-transparent font-bold text-slate-800 text-sm focus:outline-none mt-1">
-            </div>
-            <div class="bg-slate-50 border rounded-2xl p-3">
-              <label class="block text-[10px] font-bold text-slate-400 uppercase">Quota</label>
-              <select class="w-full bg-transparent font-bold text-slate-800 text-sm focus:outline-none mt-1">
-                <option>General Quota</option>
-                <option>Tatkal Quota</option>
-              </select>
-            </div>
-            <button onclick="loadTrainInventory()" class="md:col-span-3 w-full bg-orange-600 text-white font-extrabold py-3.5 rounded-2xl shadow-lg flex items-center justify-center gap-2">
-              <i data-lucide="train" class="w-5 h-5"></i> Check Live IRCTC Trains
-            </button>
-          </div>
-        </div>
-
-        <!-- 4. Universal Other Modules -->
-        <div id="module_generic" class="hidden space-y-4 text-center py-6">
-          <div class="w-16 h-16 rounded-3xl bg-sky-50 text-sky-600 mx-auto flex items-center justify-center" id="genericIconContainer">
-            <i data-lucide="car" class="w-8 h-8"></i>
-          </div>
-          <h3 class="text-xl font-black text-slate-900" id="genericTitle">Outstation & Airport Cabs</h3>
-          <p class="text-xs text-slate-500 max-w-md mx-auto" id="genericDesc">Book verified chauffeurs, instant pickup, clean sanitised cars across 250+ Indian cities.</p>
-          <div class="max-w-md mx-auto flex gap-2">
-            <input type="text" id="genericInput" placeholder="Enter Details / City" class="flex-grow p-3 bg-slate-50 border rounded-xl text-xs font-bold">
-            <button onclick="alert('Request received! Our operations desk is verifying details via WhatsApp.')" class="bg-slate-900 text-white font-bold px-6 rounded-xl text-xs">Proceed</button>
-          </div>
-        </div>
-
       </div>
     </div>
 
-    <!-- Offers Section -->
-    <section class="max-w-6xl mx-auto px-4 mt-12">
-      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
-          <h2 class="text-2xl font-black text-slate-900 tracking-tight">Active Offers & Promo Codes</h2>
-          <span class="text-xs font-bold text-sky-600 bg-sky-50 px-3 py-1 rounded-full">Bank, Flights & Hotels</span>
+    <!-- SEARCH RESULTS SECTION -->
+    <section class="max-w-6xl mx-auto px-4 py-10">
+      <div id="resultsHeader" class="hidden mb-6 flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900">Available Flight Schedules</h2>
+          <p class="text-xs text-slate-500 mt-1">Live B2B inventory with direct pricing and markup breakdown</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6" id="offersCardsContainer"></div>
+        <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full border border-emerald-200">Seats Verified</span>
       </div>
-    </section>
 
-    <!-- Search Results Section -->
-    <section id="resultsSection" class="max-w-6xl mx-auto px-4 py-12 hidden">
-      <h2 class="text-2xl font-black text-slate-900 mb-6" id="resultsHeader">Available Options</h2>
-      <div id="resultsContainerList" class="space-y-4"></div>
+      <!-- Results Container -->
+      <div id="flightResultsList" class="space-y-4">
+        <!-- Flight items injected dynamically -->
+      </div>
     </section>
   </main>
 
-  <!-- MakeMyTrip Style Editorial Content (Why Choose Us) & Social Media Section -->
-  <section class="bg-slate-100/90 border-t border-slate-200 py-12 px-4 mt-16">
-    <div class="max-w-7xl mx-auto space-y-8">
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-slate-600 text-xs leading-relaxed">
-        
-        <div class="space-y-2">
-          <h3 class="text-sm font-extrabold text-slate-900">Why SkyVoyage?</h3>
-          <p>
-            Established to revolutionize airline ticketing and travel booking across India, SkyVoyage provides genuine airline inventory, zero convenience fee markups on direct UPI settlements, and DGCA-grade e-tickets. The experience of booking flight tickets, verifying PNRs, and managing hotel stays through our portal is seamless, transparent, and completely automated.
-          </p>
-        </div>
+  <!-- BOOKING & UPI PAYMENT MODAL -->
+  <div id="bookingModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border border-slate-100">
+      <button onclick="toggleModal('bookingModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
 
-        <div class="space-y-2">
-          <h3 class="text-sm font-extrabold text-slate-900">Booking Flights with SkyVoyage</h3>
-          <p>
-            At SkyVoyage, you get direct access to real-time seat availability and verified airfares for domestic and global travel. Our priority desk offers a 24/7 dedicated helpline via WhatsApp (+91 9077777037) to handle flight status queries, date rescheduling, and baggage requests with zero delay.
-          </p>
+      <div class="text-center pb-4 border-b border-slate-100">
+        <div class="inline-flex p-3 bg-blue-50 text-blue-600 rounded-full mb-2">
+          <i data-lucide="ticket" class="w-6 h-6"></i>
         </div>
-
-        <div class="space-y-2">
-          <h3 class="text-sm font-extrabold text-slate-900">Domestic Flights with SkyVoyage</h3>
-          <p>
-            SkyVoyage delivers pan-India connectivity covering Northeast routes (Guwahati, Dimapur, Shillong, Imphal) to major Metros (Delhi, Mumbai, Bengaluru). We offer exclusive Armed Forces concessions, Student extra baggage allowances, Senior Citizen benefits, and SME Corporate travel management.
-          </p>
-        </div>
-
+        <h3 class="text-lg font-bold text-slate-900">Confirm Booking & Pay via UPI</h3>
+        <p class="text-xs text-slate-500 mt-0.5">Instant PNR & E-Ticket download upon successful payment</p>
       </div>
 
-      <div class="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-        
-        <div class="flex items-center gap-3">
-          <a href="#" class="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-sky-600 transition shadow">
-            <i data-lucide="instagram" class="w-4 h-4"></i>
-          </a>
-          <a href="#" class="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-sky-600 transition shadow">
-            <i data-lucide="twitter" class="w-4 h-4"></i>
-          </a>
-          <a href="#" class="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-sky-600 transition shadow">
-            <i data-lucide="linkedin" class="w-4 h-4"></i>
-          </a>
-          <a href="#" class="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-sky-600 transition shadow">
-            <i data-lucide="facebook" class="w-4 h-4"></i>
-          </a>
-        </div>
-
-        <div class="text-xs font-bold text-slate-700 text-center sm:text-right">
-          © 2026 SkyVoyage Travels (India) Limited
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Mega Directory Footer -->
-  <footer class="bg-slate-900 text-slate-400 pt-12 pb-12 border-t border-slate-800 text-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-[11px] leading-relaxed">
-        
-        <div>
-          <h4 class="font-extrabold text-white text-xs uppercase tracking-wider mb-3">Popular Flight Routes</h4>
-          <p class="text-slate-400 space-y-1">
-            <span class="hover:text-white cursor-pointer">Guwahati to Delhi Flights</span> • 
-            <span class="hover:text-white cursor-pointer">Delhi to Mumbai Flights</span> • 
-            <span class="hover:text-white cursor-pointer">Kolkata to Guwahati Flights</span> • 
-            <span class="hover:text-white cursor-pointer">Mumbai to Goa Flights</span> • 
-            <span class="hover:text-white cursor-pointer">Bangalore to Delhi Flights</span> • 
-            <span class="hover:text-white cursor-pointer">Dimapur to Kolkata Flights</span> • 
-            <span class="hover:text-white cursor-pointer">Imphal to Guwahati Flights</span>
-          </p>
-        </div>
-
-        <div>
-          <h4 class="font-extrabold text-white text-xs uppercase tracking-wider mb-3">Corporate & B2B Solutions</h4>
-          <p class="text-slate-400 space-y-1">
-            <span class="hover:text-white cursor-pointer">Corporate Travel Management</span> • 
-            <span class="hover:text-white cursor-pointer">myPartner - Travel Agent Portal</span> • 
-            <span class="hover:text-white cursor-pointer">GST Invoice for Flight Booking</span> • 
-            <span class="hover:text-white cursor-pointer">Corporate Expense Solutions</span> • 
-            <span class="hover:text-white cursor-pointer">Business Travel for SME</span> • 
-            <span class="hover:text-white cursor-pointer">Direct UPI Settlements</span>
-          </p>
-        </div>
-
-        <div>
-          <h4 class="font-extrabold text-white text-xs uppercase tracking-wider mb-3">Airlines & Quotas</h4>
-          <p class="text-slate-400 space-y-1">
-            <span class="hover:text-white cursor-pointer">IndiGo Domestic Flights</span> • 
-            <span class="hover:text-white cursor-pointer">Air India Express Routes</span> • 
-            <span class="hover:text-white cursor-pointer">Armed Forces Military Concession</span> • 
-            <span class="hover:text-white cursor-pointer">Student Extra 10Kg Baggage Fares</span> • 
-            <span class="hover:text-white cursor-pointer">Senior Citizen Concession Tickets</span>
-          </p>
-        </div>
-
-        <div>
-          <h4 class="font-extrabold text-white text-xs uppercase tracking-wider mb-3">Legal & Support Desk</h4>
-          <p class="text-slate-400 space-y-1">
-            <span class="hover:text-white cursor-pointer">Payment Security (256-Bit SSL)</span> • 
-            <span class="hover:text-white cursor-pointer">Privacy Policy</span> • 
-            <span class="hover:text-white cursor-pointer">User Agreement & Terms</span> • 
-            <span class="hover:text-white cursor-pointer">DGCA Guidelines</span> • 
-            <span class="hover:text-white cursor-pointer">Customer Support: +91 9077777037</span>
-          </p>
-        </div>
-
-      </div>
-
-      <div class="pt-6 border-t border-slate-800/80 text-center text-[10px] text-slate-500">
-        <p>© 2026 SkyVoyage Travels India Pvt. Ltd. All Rights Reserved. Country: India • USA • UAE.</p>
-        <p class="mt-1">Powered by Official Global Airline GDS & Direct UPI Settlement Engine.</p>
-      </div>
-
-    </div>
-  </footer>
-
-  <!-- Side Drawer for Customer Services (Opened by "More" button) -->
-  <div id="servicesDrawerOverlay" onclick="closeServicesDrawer()" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 transition-opacity"></div>
-  <div id="servicesDrawer" class="fixed top-0 right-0 h-full w-80 max-w-full bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between">
-    <div>
-      <div class="p-5 border-b flex items-center justify-between">
-        <h3 class="font-black text-base text-slate-900 flex items-center gap-2">
-          <i data-lucide="user-check" class="text-sky-600 w-5 h-5"></i> SkyVoyage Hub
-        </h3>
-        <button onclick="closeServicesDrawer()" class="p-1.5 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200">
-          <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
-      </div>
-
-      <div class="p-3 divide-y divide-slate-100 text-sm">
-        
-        <button onclick="openServiceModal('support')" class="w-full flex items-center gap-4 p-3.5 hover:bg-slate-50 rounded-2xl transition text-left group">
-          <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:bg-sky-600 group-hover:text-white transition">
-            <i data-lucide="message-square" class="w-5 h-5"></i>
-          </div>
+      <div class="py-4 space-y-3 text-sm">
+        <div class="flex justify-between font-semibold text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200">
           <div>
-            <div class="font-bold text-slate-900">Customer Support</div>
-            <div class="text-[11px] text-slate-400">24x7 WhatsApp & Call Desk</div>
+            <span id="modalFlightAirline" class="font-bold text-slate-900">Airline</span>
+            <span id="modalFlightNo" class="text-xs text-slate-500 block">Flight No</span>
           </div>
-        </button>
-
-        <button onclick="openServiceModal('notifications')" class="w-full flex items-center gap-4 p-3.5 hover:bg-slate-50 rounded-2xl transition text-left group">
-          <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-white transition">
-            <i data-lucide="bell" class="w-5 h-5"></i>
+          <div class="text-right">
+            <span id="modalFlightRoute" class="text-slate-800">GAU - DEL</span>
+            <span id="modalFlightTime" class="text-xs text-slate-500 block">Time</span>
           </div>
-          <div>
-            <div class="font-bold text-slate-900">Notifications</div>
-            <div class="text-[11px] text-slate-400">Booking Alerts & Fare Drops</div>
-          </div>
-        </button>
-
-        <button onclick="openServiceModal('giftcards')" class="w-full flex items-center gap-4 p-3.5 hover:bg-slate-50 rounded-2xl transition text-left group">
-          <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center group-hover:bg-rose-600 group-hover:text-white transition">
-            <i data-lucide="gift" class="w-5 h-5"></i>
-          </div>
-          <div>
-            <div class="font-bold text-slate-900">Gift Cards</div>
-            <div class="text-[11px] text-slate-400">Buy & Redeem Travel Vouchers</div>
-          </div>
-        </button>
-
-        <button onclick="openServiceModal('reviews')" class="w-full flex items-center gap-4 p-3.5 hover:bg-slate-50 rounded-2xl transition text-left group">
-          <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition">
-            <i data-lucide="message-square-plus" class="w-5 h-5"></i>
-          </div>
-          <div>
-            <div class="font-bold text-slate-900">My Reviews</div>
-            <div class="text-[11px] text-slate-400">Airline Ratings & Feedback</div>
-          </div>
-        </button>
-
-        <button onclick="openServiceModal('refer')" class="w-full flex items-center gap-4 p-3.5 hover:bg-slate-50 rounded-2xl transition text-left group">
-          <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition">
-            <i data-lucide="users" class="w-5 h-5"></i>
-          </div>
-          <div>
-            <div class="font-bold text-slate-900">Refer & Earn</div>
-            <div class="text-[11px] text-emerald-600 font-bold">Earn ₹250 per booking</div>
-          </div>
-        </button>
-
-      </div>
-    </div>
-
-    <div class="p-4 border-t bg-slate-50 text-center">
-      <div class="text-xs font-bold text-slate-700">SkyVoyage Verified Network</div>
-      <div class="text-[10px] text-slate-400">DGCA & Aviation Standard Compliant</div>
-    </div>
-  </div>
-
-  <!-- Interactive Action Modal for Drawer Services -->
-  <div id="serviceActionModal" class="hidden fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border">
-      <button onclick="closeServiceModal()" class="absolute top-4 right-4 text-slate-400 bg-slate-100 p-2 rounded-full"><i data-lucide="x" class="w-5 h-5"></i></button>
-      <div id="serviceModalBody"></div>
-    </div>
-  </div>
-
-  <!-- Auth Modal (Customer Login / Agent Portal) -->
-  <div id="authModal" class="hidden fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border">
-      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 bg-slate-100 p-2 rounded-full"><i data-lucide="x" class="w-5 h-5"></i></button>
-
-      <div class="flex rounded-2xl bg-slate-100 p-1 mb-5">
-        <button id="tabCustomerBtn" onclick="switchAuthMode('customer')" class="flex-1 py-2 text-xs font-black rounded-xl bg-white shadow-sm text-slate-900">Customer Login</button>
-        <button id="tabAgencyBtn" onclick="switchAuthMode('agency')" class="flex-1 py-2 text-xs font-black rounded-xl text-slate-500">Agent Portal</button>
-      </div>
-
-      <form id="customerAuthForm" onsubmit="handleCustomerLogin(event)" class="space-y-3">
-        <h3 class="text-lg font-black text-slate-900">Customer Sign In</h3>
-        <p class="text-xs text-slate-500">Enter your details to manage bookings and auto-fill passenger information.</p>
-        <input id="custName" type="text" placeholder="Your Full Name" required class="w-full p-3 bg-slate-50 border rounded-xl text-xs font-bold">
-        <input id="custPhone" type="tel" placeholder="WhatsApp Mobile Number" required class="w-full p-3 bg-slate-50 border rounded-xl text-xs font-bold">
-        <button type="submit" class="w-full bg-slate-900 text-white font-extrabold py-3 rounded-xl text-xs">Sign In as Customer</button>
-      </form>
-
-      <form id="agencyAuthForm" onsubmit="handleAgencyRegister(event)" class="space-y-3 hidden">
-        <h3 class="text-lg font-black text-slate-900">Travel Agent / Agency Setup</h3>
-        <p class="text-xs text-slate-500">Receive all ticket payments directly into your bank account & set your commission.</p>
-        <input id="agName" type="text" placeholder="Agency Name (e.g. Northeast Travels)" required class="w-full p-2.5 bg-slate-50 border rounded-xl text-xs font-bold">
-        <input id="agOwner" type="text" placeholder="Agent Full Name" required class="w-full p-2.5 bg-slate-50 border rounded-xl text-xs font-bold">
-        <input id="agUpi" type="text" placeholder="Your Bank UPI ID (e.g. name@okaxis)" required class="w-full p-2.5 bg-slate-50 border rounded-xl text-xs font-mono font-bold">
-        <div>
-          <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Your Commission Margin (%)</label>
-          <input id="agMargin" type="number" min="0" max="25" value="8" required class="w-full p-2.5 bg-slate-50 border rounded-xl text-xs font-bold">
         </div>
-        <button type="submit" class="w-full bg-sky-600 text-white font-extrabold py-3 rounded-xl text-xs shadow-md">Activate Agency Dashboard</button>
-      </form>
-    </div>
-  </div>
 
-  <!-- Universal Payment Modal -->
-  <div id="universalPayModal" class="hidden fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative border overflow-hidden">
-      <button onclick="closeUniversalPayModal()" class="absolute top-5 right-5 text-slate-400 bg-slate-100 p-2 rounded-full hover:bg-slate-200"><i data-lucide="x" class="w-5 h-5"></i></button>
-
-      <div class="border-b pb-4 mb-4 text-center">
-        <span class="text-xs font-bold text-sky-600 uppercase" id="modalServiceTag">Flight Booking</span>
-        <h3 class="text-xl font-black text-slate-900" id="modalServiceTitle">Guwahati -> Delhi</h3>
-        <div class="text-3xl font-black text-emerald-600 mt-2" id="modalTotalPayable">₹4,404</div>
-      </div>
-
-      <div class="space-y-2 mb-4">
-        <div class="grid grid-cols-2 gap-2">
-          <input id="paxName" type="text" placeholder="Passenger Full Name" required class="p-2.5 bg-slate-50 border rounded-xl text-xs font-semibold">
-          <input id="paxPhone" type="tel" placeholder="WhatsApp Mobile" required class="p-2.5 bg-slate-50 border rounded-xl text-xs font-semibold">
+        <div class="space-y-1.5 text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200">
+          <div class="flex justify-between">
+            <span>Base Fare & Taxes:</span>
+            <span id="modalBaseFare" class="font-semibold text-slate-800">₹3,950</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Portal Convenience / Markup:</span>
+            <span class="font-semibold text-emerald-600">+₹454</span>
+          </div>
+          <div class="flex justify-between border-t border-slate-200 pt-1.5 text-sm font-bold text-slate-900">
+            <span>Total Payable:</span>
+            <span id="modalTotalPayable" class="text-blue-600 text-base">₹4,404</span>
+          </div>
         </div>
-      </div>
 
-      <div class="bg-slate-50 p-4 rounded-2xl border text-center flex flex-col items-center space-y-3">
-        <div class="bg-white p-3 rounded-2xl border shadow-sm">
-          <img id="dynamicQrImage" src="" alt="UPI QR" class="w-36 h-36 object-contain">
+        <!-- UPI QR Code Section -->
+        <div class="text-center pt-2">
+          <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Scan & Pay Using Any UPI App</p>
+          <div class="inline-block p-2 bg-white rounded-xl border-2 border-slate-200 shadow-sm">
+            <img id="upiQrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=nikhiljain@okaxis&pn=SkyVoyage%20Travels&am=4404&cu=INR" alt="UPI QR" class="w-40 h-40 mx-auto">
+          </div>
+          <p class="text-xs text-slate-500 mt-2">VPA: <span class="font-mono font-bold text-slate-700">nikhiljain@okaxis</span></p>
         </div>
-        <div class="text-xs font-bold">Payee UPI: <span class="font-mono text-emerald-600 font-black" id="displayUpiId">nikhiljain@okaxis</span></div>
-        <div class="grid grid-cols-3 gap-2 w-full pt-1">
-          <a id="btnPhonePe" href="#" class="bg-indigo-600 text-white font-bold text-[11px] py-2 rounded-xl text-center">PhonePe</a>
-          <a id="btnGPay" href="#" class="bg-blue-600 text-white font-bold text-[11px] py-2 rounded-xl text-center">GPay</a>
-          <a id="btnPaytm" href="#" class="bg-sky-500 text-white font-bold text-[11px] py-2 rounded-xl text-center">Paytm</a>
-        </div>
-      </div>
 
-      <div class="mt-4 flex gap-2">
-        <input id="paymentUtrNumber" type="text" placeholder="Enter 12-digit UTR No." class="flex-grow p-3 bg-slate-50 border rounded-xl text-xs font-mono font-bold">
-        <button onclick="confirmUniversalBooking()" class="bg-slate-900 text-white font-extrabold px-5 rounded-xl text-xs">Verify & Download</button>
+        <button onclick="simulateBookingSuccess()" class="w-full mt-3 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md transition flex items-center justify-center space-x-2">
+          <i data-lucide="check-circle" class="w-5 h-5"></i>
+          <span>I Have Completed Payment</span>
+        </button>
       </div>
     </div>
   </div>
 
+  <!-- AUTH MODALS (LOGIN / AGENT) -->
+  <div id="loginModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
+      <button onclick="toggleModal('loginModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <h3 class="text-lg font-bold text-slate-900 text-center mb-4">Customer Login</h3>
+      <div class="space-y-3">
+        <input type="tel" placeholder="Mobile Number" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-600">
+        <button onclick="alert('OTP sent successfully!'); toggleModal('loginModal');" class="w-full py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 text-sm">Send OTP</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="agentModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
+      <button onclick="toggleModal('agentModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <h3 class="text-lg font-bold text-slate-900 text-center mb-1">B2B Agent Portal</h3>
+      <p class="text-xs text-slate-500 text-center mb-4">Access wholesale fares & instant margin splits</p>
+      <div class="space-y-3">
+        <input type="text" placeholder="Agent ID / Email" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-600">
+        <input type="password" placeholder="Password" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-600">
+        <button onclick="alert('Agent logged in with wholesale access.'); toggleModal('agentModal');" class="w-full py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 text-sm">Sign In to Desk</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
   <script>
-    let currentUser = JSON.parse(localStorage.getItem('sky_active_user')) || null;
-    let selectedFareType = 'regular';
-    let currentSelectedFlight = null;
-    let flightSearchResults = [];
+    // Initialize Lucide Icons
+    lucide.createIcons();
 
-    const FARE_METADATA = {
-      'regular': { name: 'Regular Economy', discount: 0, bagCheckin: '15 Kg', tag: 'Standard Fare' },
-      'armed_forces': { name: 'Armed Forces / Defence', discount: 600, bagCheckin: '15 Kg', tag: 'Military Concession (-₹600)' },
-      'student': { name: 'Student Special', discount: 350, bagCheckin: '25 Kg (Extra 10kg)', tag: 'Student Baggage (-₹350)' },
-      'senior_citizen': { name: 'Senior Citizen (60+)', discount: 450, bagCheckin: '15 Kg', tag: 'Senior Concession (-₹450)' },
-      'corporate': { name: 'Corporate / SME Flexi', discount: 0, bagCheckin: '20 Kg', tag: 'Free Meal + Flexi' }
-    };
+    // Default Departure Date to tomorrow
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    document.getElementById('flightDate').value = tomorrow.toISOString().split('T')[0];
 
-    const OFFERS_DATA = [
-      {
-        title: 'HDFC Bank Cards: Flat 12% Instant OFF',
-        desc: 'Use Code HDFCTRAVEL on Flights & Hotels for instant cash discount.',
-        code: 'HDFCTRAVEL',
-        image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=400&q=80'
-      },
-      {
-        title: 'Direct UPI Instant Discount: Flat ₹500 OFF',
-        desc: 'No card required! Pay via GPay, PhonePe or Paytm with zero fees.',
-        code: 'FLYINDIA',
-        image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&q=80'
-      }
-    ];
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const d = new Date(); d.setDate(d.getDate() + 10);
-      document.getElementById("flightDate").value = d.toISOString().split('T')[0];
-      if (document.getElementById("hotelIn")) document.getElementById("hotelIn").value = d.toISOString().split('T')[0];
-      syncUserUI();
-      renderOffers();
-      lucide.createIcons();
-    });
-
-    function openServicesDrawer() {
-      document.getElementById("servicesDrawerOverlay").classList.remove("hidden");
-      document.getElementById("servicesDrawer").classList.remove("translate-x-full");
-    }
-    function closeServicesDrawer() {
-      document.getElementById("servicesDrawerOverlay").classList.add("hidden");
-      document.getElementById("servicesDrawer").classList.add("translate-x-full");
+    function toggleModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('hidden');
     }
 
-    function openServiceModal(type) {
-      closeServicesDrawer();
-      const body = document.getElementById("serviceModalBody");
-      
-      if (type === 'support') {
-        body.innerHTML = `
-          <div class="text-center space-y-3">
-            <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 mx-auto flex items-center justify-center"><i data-lucide="message-square" class="w-6 h-6"></i></div>
-            <h3 class="text-lg font-black text-slate-900">24x7 Customer Support Desk</h3>
-            <p class="text-xs text-slate-500">Need instant assistance with date change, refund, or baggage?</p>
-            <div class="bg-slate-50 p-4 rounded-2xl border text-left space-y-2 text-xs">
-              <div><strong>WhatsApp Priority:</strong> <span class="text-emerald-600 font-bold">+91 9077777037</span></div>
-              <div><strong>Email Support:</strong> <span class="text-sky-600 font-bold">support@skyvoyage.in</span></div>
-              <div><strong>Operating Hours:</strong> 24 Hours • 7 Days a Week</div>
-            </div>
-            <a href="https://wa.me/919077777037" target="_blank" class="w-full block bg-emerald-600 text-white font-extrabold py-3 rounded-xl text-xs">Start WhatsApp Chat</a>
-          </div>
-        `;
-      } else if (type === 'notifications') {
-        body.innerHTML = `
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center"><i data-lucide="bell" class="w-4 h-4"></i></div>
-              <h3 class="text-base font-black text-slate-900">Live Flight Notifications</h3>
-            </div>
-            <div class="space-y-2 text-xs">
-              <div class="p-3 bg-slate-50 border rounded-xl">
-                <div class="font-bold text-slate-900">⚡ Special Fare Alert</div>
-                <div class="text-slate-500 text-[11px] mt-0.5">Defence & Student quotas updated for Northeast & Metro sectors.</div>
-              </div>
-              <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl">
-                <div class="font-bold text-emerald-900">✓ Instant UPI System Active</div>
-                <div class="text-emerald-700 text-[11px] mt-0.5">0% payment gateway fees applied on all direct UPI settlements.</div>
-              </div>
-            </div>
-          </div>
-        `;
-      } else if (type === 'giftcards') {
-        body.innerHTML = `
-          <div class="text-center space-y-3">
-            <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 mx-auto flex items-center justify-center"><i data-lucide="gift" class="w-6 h-6"></i></div>
-            <h3 class="text-lg font-black text-slate-900">SkyVoyage Travel Gift Cards</h3>
-            <p class="text-xs text-slate-500">Gift flight vouchers to friends and family with instant redemption.</p>
-            <div class="flex gap-2">
-              <input type="text" placeholder="Enter Gift Voucher Code" class="p-3 bg-slate-50 border rounded-xl text-xs font-mono font-bold flex-grow">
-              <button onclick="alert('Voucher validated! Rs. 1000 credit available.')" class="bg-rose-600 text-white font-bold px-4 rounded-xl text-xs">Redeem</button>
-            </div>
-          </div>
-        `;
-      } else if (type === 'reviews') {
-        body.innerHTML = `
-          <div class="space-y-3">
-            <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center"><i data-lucide="message-square-plus" class="w-4 h-4"></i></div>
-              <h3 class="text-base font-black text-slate-900">Rate & Review Your Flight</h3>
-            </div>
-            <p class="text-xs text-slate-500">Share your check-in, seat comfort and on-time flight experience.</p>
-            <textarea placeholder="Write your review here..." class="w-full p-3 bg-slate-50 border rounded-xl text-xs h-24 focus:outline-none"></textarea>
-            <button onclick="alert('Thank you! Your verified review has been submitted.'); closeServiceModal();" class="w-full bg-indigo-600 text-white font-extrabold py-2.5 rounded-xl text-xs">Submit Review</button>
-          </div>
-        `;
-      } else if (type === 'refer') {
-        body.innerHTML = `
-          <div class="text-center space-y-3">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center"><i data-lucide="users" class="w-6 h-6"></i></div>
-            <h3 class="text-lg font-black text-slate-900">Refer & Earn ₹250</h3>
-            <p class="text-xs text-slate-500">Share your referral link. Whenever a friend or customer books, you get ₹250 directly in your UPI wallet!</p>
-            <div class="bg-slate-100 p-3 rounded-2xl font-mono text-xs font-black text-slate-800 border select-all">
-              https://skyvoyage.in/ref?code=SKYINDIA
-            </div>
-            <button onclick="navigator.clipboard.writeText('https://skyvoyage.in/ref?code=SKYINDIA'); alert('Referral link copied to clipboard!');" class="w-full bg-emerald-600 text-white font-extrabold py-3 rounded-xl text-xs">Copy Share Link</button>
-          </div>
-        `;
-      }
-
-      document.getElementById("serviceActionModal").classList.remove("hidden");
-      lucide.createIcons();
-    }
-    function closeServiceModal() { document.getElementById("serviceActionModal").classList.add("hidden"); }
-
-    function switchMainTab(tab) {
-      document.querySelectorAll('.nav-service-tab').forEach(el => {
-        el.className = "nav-service-tab flex flex-col items-center gap-1 hover:text-sky-600 pb-1 flex-shrink-0 text-slate-500";
-        const iconDiv = el.querySelector('div');
-        if (iconDiv) iconDiv.className = "w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center";
-      });
-
-      const activeEl = document.getElementById(`navTab_${tab}`);
-      if (activeEl) {
-        activeEl.className = "nav-service-tab flex flex-col items-center gap-1 text-sky-600 border-b-2 border-sky-600 pb-1 flex-shrink-0";
-        const iconDiv = activeEl.querySelector('div');
-        if (iconDiv) iconDiv.className = "w-8 h-8 rounded-full bg-sky-50 flex items-center justify-center";
-      }
-
-      document.getElementById("module_flights").classList.add("hidden");
-      document.getElementById("module_hotels").classList.add("hidden");
-      document.getElementById("module_trains").classList.add("hidden");
-      document.getElementById("module_generic").classList.add("hidden");
-      document.getElementById("resultsSection").classList.add("hidden");
-
-      if (tab === 'flights') {
-        document.getElementById("module_flights").classList.remove("hidden");
-        document.getElementById("heroTitle").innerText = "Book Flights & Download Official E-Tickets";
-      } else if (tab === 'hotels') {
-        document.getElementById("module_hotels").classList.remove("hidden");
-        document.getElementById("heroTitle").innerText = "Book Luxury & Budget Hotels Across India";
-      } else if (tab === 'trains') {
-        document.getElementById("module_trains").classList.remove("hidden");
-        document.getElementById("heroTitle").innerText = "IRCTC Authorized Train Ticket Booking";
-      } else {
-        document.getElementById("module_generic").classList.remove("hidden");
-        const meta = {
-          'villas': { title: 'Villas & Premium Homestays', desc: 'Private pools, luxury estates, and verified vacation homes in Goa, Manali & Lonavala.', icon: 'home' },
-          'holidays': { title: 'Curated Holiday Packages', desc: 'All-inclusive flights, 4-star hotels, transfers & sightseeing for Kashmir, Bali, Dubai & Kerala.', icon: 'palmtree' },
-          'buses': { title: 'Intercity AC Sleeper & Volvo Bus Booking', desc: 'Instant confirmed seats with live GPS tracking on 10,000+ routes across India.', icon: 'bus' },
-          'cabs': { title: 'Outstation & Airport Cab Booking', desc: 'Clean, sanitized cabs with professional chauffeurs for one-way and round trips.', icon: 'car' },
-          'visa': { title: 'Fast-Track Global eVisa Assistance Desk', desc: 'Guaranteed document verification for Dubai, Schengen, Thailand & Singapore.', icon: 'file-check-2' },
-          'forex': { title: 'Forex Cards & Currency Exchange', desc: 'Zero markup forex cards with doorstep delivery and real-time live exchange rates.', icon: 'credit-card' },
-          'insurance': { title: 'Comprehensive Travel Insurance', desc: 'Medical emergency cover, baggage loss protection, and trip delay compensations.', icon: 'shield-plus' }
-        };
-        const item = meta[tab] || meta['cabs'];
-        document.getElementById("heroTitle").innerText = item.title;
-        document.getElementById("genericTitle").innerText = item.title;
-        document.getElementById("genericDesc").innerText = item.desc;
-        document.getElementById("genericIconContainer").innerHTML = `<i data-lucide="${item.icon}" class="w-8 h-8"></i>`;
-      }
-      lucide.createIcons();
-    }
-
-    function syncUserUI() {
-      if (currentUser) {
-        document.getElementById("authNavButtons").classList.add("hidden");
-        document.getElementById("userProfilePill").classList.remove("hidden");
-        document.getElementById("userProfilePill").classList.add("flex");
-
-        if (currentUser.type === 'agency') {
-          document.getElementById("profileNameDisplay").innerText = currentUser.agencyName;
-          document.getElementById("profileRoleDisplay").innerText = `Agent: ${currentUser.ownerName} (${currentUser.margin}% Margin)`;
-          document.getElementById("brandSubtitle").innerText = `Agency Portal - ${currentUser.agencyName}`;
-        } else {
-          document.getElementById("profileNameDisplay").innerText = currentUser.name;
-          document.getElementById("profileRoleDisplay").innerText = `Customer (${currentUser.phone})`;
-        }
-      } else {
-        document.getElementById("authNavButtons").classList.remove("hidden");
-        document.getElementById("userProfilePill").classList.add("hidden");
-      }
-    }
-
-    function openAuthModal(mode) {
-      document.getElementById("authModal").classList.remove("hidden");
-      switchAuthMode(mode);
-    }
-    function closeAuthModal() { document.getElementById("authModal").classList.add("hidden"); }
-
-    function switchAuthMode(mode) {
-      if (mode === 'customer') {
-        document.getElementById("tabCustomerBtn").className = "flex-1 py-2 text-xs font-black rounded-xl bg-white shadow-sm text-slate-900";
-        document.getElementById("tabAgencyBtn").className = "flex-1 py-2 text-xs font-black rounded-xl text-slate-500";
-        document.getElementById("customerAuthForm").classList.remove("hidden");
-        document.getElementById("agencyAuthForm").classList.add("hidden");
-      } else {
-        document.getElementById("tabAgencyBtn").className = "flex-1 py-2 text-xs font-black rounded-xl bg-white shadow-sm text-slate-900";
-        document.getElementById("tabCustomerBtn").className = "flex-1 py-2 text-xs font-black rounded-xl text-slate-500";
-        document.getElementById("agencyAuthForm").classList.remove("hidden");
-        document.getElementById("customerAuthForm").classList.add("hidden");
-      }
-    }
-
-    function handleCustomerLogin(e) {
+    // Flight Search Handler
+    document.getElementById('flightSearchForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      currentUser = {
-        type: 'customer',
-        name: document.getElementById("custName").value.trim(),
-        phone: document.getElementById("custPhone").value.trim()
-      };
-      localStorage.setItem('sky_active_user', JSON.stringify(currentUser));
-      closeAuthModal();
-      syncUserUI();
-      alert(`Welcome ${currentUser.name}! Customer logged in.`);
-    }
 
-    function handleAgencyRegister(e) {
-      e.preventDefault();
-      currentUser = {
-        type: 'agency',
-        agencyName: document.getElementById("agName").value.trim(),
-        ownerName: document.getElementById("agOwner").value.trim(),
-        upiId: document.getElementById("agUpi").value.trim(),
-        margin: parseFloat(document.getElementById("agMargin").value) || 8
-      };
-      localStorage.setItem('sky_active_user', JSON.stringify(currentUser));
-      closeAuthModal();
-      syncUserUI();
-      alert(`🎉 Agency "${currentUser.agencyName}" setup! All payments will be routed to ${currentUser.upiId}.`);
-    }
+      const from = document.getElementById('flightFrom').value.trim();
+      const to = document.getElementById('flightTo').value.trim();
+      const date = document.getElementById('flightDate').value;
+      const pax = document.getElementById('flightPax').value;
+      const btn = document.getElementById('btnFlightSearch');
 
-    function logoutUser() {
-      currentUser = null;
-      localStorage.removeItem('sky_active_user');
-      syncUserUI();
-      alert("Logged out successfully.");
-    }
-
-    function selectFareType(type) {
-      selectedFareType = type;
-      document.querySelectorAll('.fare-tab').forEach(b => {
-        b.className = "fare-tab border border-slate-200 bg-slate-50 hover:bg-slate-100 p-3 rounded-2xl text-left transition";
-      });
-      document.getElementById(`fareTab_${type}`).className = "fare-tab border-2 border-sky-600 bg-sky-50/70 p-3 rounded-2xl text-left transition";
-    }
-
-    function renderOffers() {
-      const container = document.getElementById("offersCardsContainer");
-      container.innerHTML = "";
-      OFFERS_DATA.forEach(o => {
-        container.innerHTML += `
-          <div class="bg-white border border-slate-200 rounded-2xl p-4 flex gap-4 shadow-sm">
-            <img src="${o.image}" alt="Offer" class="w-24 h-24 rounded-xl object-cover">
-            <div class="flex flex-col justify-between flex-grow">
-              <div>
-                <span class="text-[10px] font-mono font-bold text-sky-600 bg-sky-50 px-2 py-0.5 rounded">CODE: ${o.code}</span>
-                <h4 class="text-sm font-black text-slate-900 mt-1">${o.title}</h4>
-                <p class="text-xs text-slate-500 mt-0.5">${o.desc}</p>
-              </div>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    async function executeLiveFlightSearch(e) {
-      e.preventDefault();
-      const from = document.getElementById("flightFrom").value;
-      const to = document.getElementById("flightTo").value;
-      const date = document.getElementById("flightDate").value;
-      const pax = document.getElementById("flightPax").value;
-      const btn = document.getElementById("btnFlightSearch");
-
-      btn.innerHTML = `<span class="animate-spin mr-2">⏳</span> Searching Fares...`;
+      btn.innerHTML = `<span class="inline-block animate-spin mr-2">⏳</span> Searching Fares...`;
       btn.disabled = true;
 
       try {
-        const response = await fetch('http://127.0.0.1:5000/api/flights/search', {
+        // RELATIVE PATH: Works seamlessly both on Render cloud and locally
+        const response = await fetch('/api/flights/search', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ origin: from, destination: to, departureDate: date, passengers: pax })
         });
+
         const data = await response.json();
-        btn.innerHTML = `<i data-lucide="search" class="w-5 h-5"></i> Search Available Flights`;
+        btn.innerHTML = `<i data-lucide="search" class="w-5 h-5"></i><span>Search Available Flights</span>`;
         btn.disabled = false;
-
-        flightSearchResults = data.flights;
-        const fareInfo = FARE_METADATA[selectedFareType];
-        document.getElementById("resultsHeader").innerHTML = `${from} &rarr; ${to} Flights (${flightSearchResults.length} Options Available)`;
-        const c = document.getElementById("resultsContainerList");
-        c.innerHTML = "";
-
-        flightSearchResults.forEach(f => {
-          let price = Math.max(1200, f.price - fareInfo.discount);
-          if (currentUser && currentUser.type === 'agency') {
-            price = Math.round(price * (1 + (currentUser.margin / 100)));
-          }
-
-          c.innerHTML += `
-            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold text-sky-600">${f.airline} (${f.flightNo})</span>
-                  <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">${fareInfo.name}</span>
-                </div>
-                <div class="text-xl font-black mt-1">${f.depTime} &rarr; ${f.arrTime}</div>
-                <div class="text-xs text-slate-400">${f.from} to ${f.to} • ${f.duration}</div>
-              </div>
-              <div class="flex items-center gap-4">
-                <div class="text-right">
-                  <div class="text-2xl font-black text-slate-900">₹${price.toLocaleString('en-IN')}</div>
-                  <div class="text-[10px] text-emerald-600 font-bold">✓ ${fareInfo.tag}</div>
-                </div>
-                <button onclick="openUniversalPayModal('${f.id}', ${price})" class="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs px-6 py-3 rounded-xl shadow-md">
-                  Pay & Book Now
-                </button>
-              </div>
-            </div>
-          `;
-        });
-        document.getElementById("resultsSection").classList.remove("hidden");
-        document.getElementById("resultsSection").scrollIntoView({ behavior: 'smooth' });
         lucide.createIcons();
+
+        if (data.success && data.flights) {
+          renderFlightResults(data.flights, from, to);
+        } else {
+          alert('No flights found for this route.');
+        }
       } catch (err) {
-        btn.innerHTML = `<i data-lucide="search" class="w-5 h-5"></i> Search Available Flights`;
+        console.error('Fetch error:', err);
+        btn.innerHTML = `<i data-lucide="search" class="w-5 h-5"></i><span>Search Available Flights</span>`;
         btn.disabled = false;
-        alert("Server error.");
+        lucide.createIcons();
+        alert('Server response delay. Please retry in a moment.');
       }
-    }
+    });
 
-    function openUniversalPayModal(id, price) {
-      currentSelectedFlight = flightSearchResults.find(x => x.id === id);
-      if (!currentSelectedFlight) return;
+    function renderFlightResults(flights, origin, dest) {
+      const container = document.getElementById('flightResultsList');
+      const header = document.getElementById('resultsHeader');
+      header.classList.remove('hidden');
+      container.innerHTML = '';
 
-      const upiId = (currentUser && currentUser.type === 'agency' && currentUser.upiId) ? currentUser.upiId : "nikhiljain@okaxis";
-      const payeeName = (currentUser && currentUser.type === 'agency') ? currentUser.agencyName : "SkyVoyage Travels";
+      flights.forEach(f => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col md:flex-row items-center justify-between gap-4';
 
-      document.getElementById("modalServiceTag").innerText = `${currentSelectedFlight.airline} (${currentSelectedFlight.flightNo})`;
-      document.getElementById("modalServiceTitle").innerHTML = `${currentSelectedFlight.from} &rarr; ${currentSelectedFlight.to}`;
-      document.getElementById("modalTotalPayable").innerText = `₹${price.toLocaleString('en-IN')}`;
-      document.getElementById("displayUpiId").innerText = upiId;
+        card.innerHTML = `
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg border border-blue-100">
+              ${f.airline.substring(0, 2).toUpperCase()}
+            </div>
+            <div>
+              <div class="font-bold text-slate-900 text-base">${f.airline} <span class="text-xs text-slate-400 font-normal">(${f.flightNo})</span></div>
+              <div class="text-xs text-slate-500 mt-0.5">Non-Stop • ${f.duration} • Hand & Check-in Baggage Included</div>
+            </div>
+          </div>
 
-      if (currentUser && currentUser.type === 'customer') {
-        document.getElementById("paxName").value = currentUser.name;
-        document.getElementById("paxPhone").value = currentUser.phone;
-      }
+          <div class="flex items-center space-x-8 text-center">
+            <div>
+              <div class="text-lg font-extrabold text-slate-900">${f.depTime}</div>
+              <div class="text-xs font-semibold text-slate-500 uppercase">${origin}</div>
+            </div>
+            <div class="flex flex-col items-center">
+              <span class="text-[11px] font-medium text-slate-400">${f.duration}</span>
+              <div class="w-24 h-0.5 bg-slate-300 relative my-1">
+                <i data-lucide="plane" class="w-3.5 h-3.5 text-blue-600 absolute -top-1.5 left-1/2 -translate-x-1/2 transform"></i>
+              </div>
+              <span class="text-[10px] font-bold text-emerald-600">DIRECT</span>
+            </div>
+            <div>
+              <div class="text-lg font-extrabold text-slate-900">${f.arrTime}</div>
+              <div class="text-xs font-semibold text-slate-500 uppercase">${dest}</div>
+            </div>
+          </div>
 
-      const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payeeName)}&am=${price}&cu=INR&tn=Ticket_${currentSelectedFlight.flightNo}`;
-      document.getElementById("dynamicQrImage").src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUrl)}`;
-      document.getElementById("btnPhonePe").href = upiUrl;
-      document.getElementById("btnGPay").href = upiUrl;
-      document.getElementById("btnPaytm").href = upiUrl;
-
-      document.getElementById("universalPayModal").classList.remove("hidden");
+          <div class="flex items-center space-x-4 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-3 md:pt-0">
+            <div class="text-right">
+              <div class="text-2xl font-black text-slate-900">₹${f.price.toLocaleString('en-IN')}</div>
+              <div class="text-[11px] text-emerald-600 font-bold">Free Meal Included</div>
+            </div>
+            <button onclick="openBooking('${f.airline}', '${f.flightNo}', '${origin}', '${dest}', '${f.depTime}', ${f.price})" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm shadow-md transition">
+              Book Now
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
       lucide.createIcons();
     }
 
-    function closeUniversalPayModal() { document.getElementById("universalPayModal").classList.add("hidden"); }
+    function openBooking(airline, flightNo, origin, dest, time, price) {
+      document.getElementById('modalFlightAirline').innerText = airline;
+      document.getElementById('modalFlightNo').innerText = flightNo;
+      document.getElementById('modalFlightRoute').innerText = `${origin} ➔ ${dest}`;
+      document.getElementById('modalFlightTime').innerText = `Departure: ${time}`;
+      document.getElementById('modalBaseFare').innerText = `₹${(price - 454).toLocaleString('en-IN')}`;
+      document.getElementById('modalTotalPayable').innerText = `₹${price.toLocaleString('en-IN')}`;
 
-    function confirmUniversalBooking() {
-      const name = document.getElementById("paxName").value.trim();
-      const phone = document.getElementById("paxPhone").value.trim();
-      if (!name || !phone) { alert("Passenger details fill karein!"); return; }
-      const pnr = "6E-SKY" + Math.floor(100 + Math.random() * 900);
-      closeUniversalPayModal();
-      alert(`🎉 Payment Verified!\nAirline PNR: ${pnr}\nOfficial Ticket download ho raha hai.`);
+      // Dynamic UPI Link
+      const upiUrl = `upi://pay?pa=nikhiljain@okaxis&pn=SkyVoyage%20Travels&am=${price}&cu=INR&tn=Booking%20${flightNo}`;
+      document.getElementById('upiQrCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiUrl)}`;
+
+      toggleModal('bookingModal');
     }
 
-    function loadHotelInventory() { alert('Hotel inventory active! Search from module.'); }
-    function loadTrainInventory() { alert('IRCTC train engine active! Search from module.'); }
+    function simulateBookingSuccess() {
+      toggleModal('bookingModal');
+      alert('Payment Verified! Your official DGCA E-Ticket & PNR has been generated and sent to your email/mobile.');
+    }
   </script>
 </body>
 </html>
