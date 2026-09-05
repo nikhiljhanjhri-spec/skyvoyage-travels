@@ -4,17 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SkyVoyage Travels - Flights, Hotels & Tours</title>
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     body { font-family: 'Inter', sans-serif; }
-    .glass-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
@@ -23,120 +17,62 @@
   <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="bg-blue-600 text-white p-2 rounded-xl flex items-center justify-center shadow-md shadow-blue-500/20">
+        <div class="bg-blue-600 text-white p-2 rounded-xl flex items-center justify-center shadow-md">
           <i data-lucide="plane-takeoff" class="w-6 h-6"></i>
         </div>
         <div>
           <span class="text-xl font-black tracking-tight text-slate-900">Sky<span class="text-blue-600">Voyage</span></span>
-          <span class="hidden sm:inline-block ml-2 text-xs font-semibold px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full border border-blue-200">DGCA Authorized</span>
+          <span class="ml-2 text-xs font-semibold px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full border border-blue-200">DGCA Compliant Desk</span>
         </div>
       </div>
 
       <div class="flex items-center space-x-3">
-        <button onclick="toggleModal('loginModal')" class="px-4 py-2 text-sm font-semibold text-slate-700 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition">
-          <i data-lucide="user" class="w-4 h-4 inline-block mr-1"></i> Customer Login
-        </button>
-        <button onclick="toggleModal('agentModal')" class="px-4 py-2 text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 rounded-lg transition shadow-sm flex items-center">
-          <i data-lucide="briefcase" class="w-4 h-4 mr-1.5"></i> Agent Portal
-        </button>
+        <a href="https://wa.me/919876543210" target="_blank" class="px-3 py-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-300 rounded-lg flex items-center gap-1.5">
+          <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> 24x7 Helpdesk
+        </a>
       </div>
     </div>
   </header>
 
-  <!-- CATEGORY NAVIGATION -->
-  <div class="bg-white border-b border-slate-200 py-3 shadow-xs">
-    <div class="max-w-7xl mx-auto px-4 overflow-x-auto flex space-x-8 no-scrollbar text-sm font-medium text-slate-600">
-      <a href="#" class="flex items-center space-x-2 text-blue-600 border-b-2 border-blue-600 pb-1 font-semibold">
-        <i data-lucide="plane" class="w-4 h-4"></i> <span>Flights</span>
-      </a>
-      <a href="#" class="flex items-center space-x-2 hover:text-blue-600 transition pb-1">
-        <i data-lucide="hotel" class="w-4 h-4"></i> <span>Hotels</span>
-      </a>
-      <a href="#" class="flex items-center space-x-2 hover:text-blue-600 transition pb-1">
-        <i data-lucide="palmtree" class="w-4 h-4"></i> <span>Holidays</span>
-      </a>
-      <a href="#" class="flex items-center space-x-2 hover:text-blue-600 transition pb-1">
-        <i data-lucide="train" class="w-4 h-4"></i> <span>Trains</span>
-      </a>
-      <a href="#" class="flex items-center space-x-2 hover:text-blue-600 transition pb-1">
-        <i data-lucide="bus" class="w-4 h-4"></i> <span>Buses</span>
-      </a>
-      <a href="#" class="flex items-center space-x-2 hover:text-blue-600 transition pb-1">
-        <i data-lucide="shield-check" class="w-4 h-4"></i> <span>Insurance</span>
-      </a>
-      <a href="#" class="flex items-center space-x-2 hover:text-blue-600 transition pb-1">
-        <i data-lucide="file-text" class="w-4 h-4"></i> <span>Visa Desk</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- HERO & SEARCH SECTION -->
+  <!-- SEARCH BANNER -->
   <main class="flex-grow">
-    <div class="bg-gradient-to-b from-blue-900 via-blue-800 to-indigo-950 text-white py-12 px-4 sm:px-6 relative overflow-hidden">
-      <div class="max-w-6xl mx-auto relative z-10">
-        <div class="text-center mb-8">
-          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Search Cheap Flights & Special Fares</h1>
-          <p class="text-blue-200 mt-2 text-sm sm:text-base">Official DGCA Compliant Instant E-Ticketing with Direct UPI QR Settlement.</p>
+    <div class="bg-gradient-to-b from-blue-900 via-blue-800 to-indigo-950 text-white py-10 px-4 sm:px-6">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-6">
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Search & Book Flights with Guaranteed Assistance</h1>
+          <p class="text-blue-200 text-xs sm:text-sm mt-1">Instant UPI settlement with direct PNR delivery on WhatsApp</p>
         </div>
 
-        <!-- SEARCH FORM CARD -->
-        <div class="glass-card text-slate-800 rounded-2xl p-6 shadow-2xl border border-white/20">
-          <!-- Quotas -->
-          <div class="flex flex-wrap gap-4 mb-5 text-xs font-semibold">
-            <label class="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg cursor-pointer transition">
-              <input type="radio" name="quota" value="regular" checked class="text-blue-600 focus:ring-0">
-              <span>Regular Fare</span>
-            </label>
-            <label class="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg cursor-pointer transition">
-              <input type="radio" name="quota" value="defence" class="text-blue-600 focus:ring-0">
-              <span>Armed Forces (Flat ₹600 OFF)</span>
-            </label>
-            <label class="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg cursor-pointer transition">
-              <input type="radio" name="quota" value="student" class="text-blue-600 focus:ring-0">
-              <span>Student (+10 Kg Baggage)</span>
-            </label>
-            <label class="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg cursor-pointer transition">
-              <input type="radio" name="quota" value="senior" class="text-blue-600 focus:ring-0">
-              <span>Senior Citizen (Flat ₹450 OFF)</span>
-            </label>
-          </div>
-
-          <form id="flightSearchForm" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-white text-slate-800 rounded-2xl p-5 shadow-xl border border-slate-200">
+          <form id="flightSearchForm" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div>
               <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">From</label>
-              <div class="relative">
-                <i data-lucide="map-pin" class="w-4 h-4 absolute left-3 top-3.5 text-slate-400"></i>
-                <input type="text" id="flightFrom" value="GAU" required class="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-bold uppercase text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition" placeholder="City or Airport (e.g. GAU)">
-              </div>
+              <input type="text" id="flightFrom" value="GAU" required class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl font-bold uppercase focus:ring-2 focus:ring-blue-600 outline-none">
             </div>
 
             <div>
               <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">To</label>
-              <div class="relative">
-                <i data-lucide="plane-landing" class="w-4 h-4 absolute left-3 top-3.5 text-slate-400"></i>
-                <input type="text" id="flightTo" value="DEL" required class="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-bold uppercase text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition" placeholder="City or Airport (e.g. DEL)">
-              </div>
+              <input type="text" id="flightTo" value="DEL" required class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl font-bold uppercase focus:ring-2 focus:ring-blue-600 outline-none">
             </div>
 
             <div>
               <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Departure Date</label>
-              <input type="date" id="flightDate" required class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-semibold text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition">
+              <input type="date" id="flightDate" required class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl font-semibold focus:ring-2 focus:ring-blue-600 outline-none">
             </div>
 
             <div>
               <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Passengers</label>
-              <select id="flightPax" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-semibold text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition">
-                <option value="1">1 Passenger (Economy)</option>
+              <select id="flightPax" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl font-semibold focus:ring-2 focus:ring-blue-600 outline-none">
+                <option value="1">1 Passenger</option>
                 <option value="2">2 Passengers</option>
                 <option value="3">3 Passengers</option>
-                <option value="4">4+ Group Booking</option>
               </select>
             </div>
 
-            <div class="md:col-span-4 mt-2">
-              <button type="submit" id="btnFlightSearch" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center justify-center space-x-2 text-base">
-                <i data-lucide="search" class="w-5 h-5"></i>
-                <span>Search Available Flights</span>
+            <div class="sm:col-span-2 md:col-span-4 mt-2">
+              <button type="submit" id="btnSearch" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md transition flex items-center justify-center space-x-2">
+                <i data-lucide="search" class="w-4 h-4"></i>
+                <span>Search Flights</span>
               </button>
             </div>
           </form>
@@ -144,238 +80,193 @@
       </div>
     </div>
 
-    <!-- SEARCH RESULTS SECTION -->
-    <section class="max-w-6xl mx-auto px-4 py-10">
-      <div id="resultsHeader" class="hidden mb-6 flex items-center justify-between">
-        <div>
-          <h2 class="text-xl font-bold text-slate-900">Available Flight Schedules</h2>
-          <p class="text-xs text-slate-500 mt-1">Live B2B inventory with direct pricing and markup breakdown</p>
-        </div>
-        <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full border border-emerald-200">Seats Verified</span>
+    <!-- FLIGHTS LIST -->
+    <section class="max-w-5xl mx-auto px-4 py-8">
+      <div id="resultsHeader" class="hidden mb-4 flex items-center justify-between">
+        <h2 class="text-lg font-bold text-slate-900">Available Flights & Fares</h2>
+        <span class="text-xs font-semibold bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full border border-emerald-200">Seat Locked</span>
       </div>
 
-      <!-- Results Container -->
-      <div id="flightResultsList" class="space-y-4">
-        <!-- Flight items injected dynamically -->
-      </div>
+      <div id="flightResultsList" class="space-y-3"></div>
     </section>
   </main>
 
-  <!-- BOOKING & UPI PAYMENT MODAL -->
+  <!-- PASSENGER DETAILS & PAYMENT MODAL -->
   <div id="bookingModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border border-slate-100">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
       <button onclick="toggleModal('bookingModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <div class="text-center pb-4 border-b border-slate-100">
-        <div class="inline-flex p-3 bg-blue-50 text-blue-600 rounded-full mb-2">
-          <i data-lucide="ticket" class="w-6 h-6"></i>
-        </div>
-        <h3 class="text-lg font-bold text-slate-900">Confirm Booking & Pay via UPI</h3>
-        <p class="text-xs text-slate-500 mt-0.5">Instant PNR & E-Ticket download upon successful payment</p>
+      <div class="text-center pb-3 border-b border-slate-100">
+        <h3 class="text-lg font-bold text-slate-900">Passenger Details & UPI Settlement</h3>
+        <p class="text-xs text-slate-500">Provide ticket issuance details for PNR generation</p>
       </div>
 
-      <div class="py-4 space-y-3 text-sm">
-        <div class="flex justify-between font-semibold text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200">
+      <form id="passengerForm" onsubmit="handlePaymentStep(event)" class="mt-4 space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Lead Passenger Full Name (As per Govt ID)</label>
+          <input type="text" id="paxName" required placeholder="e.g. Ramesh Kumar" class="w-full px-3 py-2 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-600">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
           <div>
-            <span id="modalFlightAirline" class="font-bold text-slate-900">Airline</span>
-            <span id="modalFlightNo" class="text-xs text-slate-500 block">Flight No</span>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Mobile / WhatsApp No.</label>
+            <input type="tel" id="paxPhone" required placeholder="10-digit number" class="w-full px-3 py-2 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-600">
           </div>
-          <div class="text-right">
-            <span id="modalFlightRoute" class="text-slate-800">GAU - DEL</span>
-            <span id="modalFlightTime" class="text-xs text-slate-500 block">Time</span>
-          </div>
-        </div>
-
-        <div class="space-y-1.5 text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200">
-          <div class="flex justify-between">
-            <span>Base Fare & Taxes:</span>
-            <span id="modalBaseFare" class="font-semibold text-slate-800">₹3,950</span>
-          </div>
-          <div class="flex justify-between">
-            <span>Portal Convenience / Markup:</span>
-            <span class="font-semibold text-emerald-600">+₹454</span>
-          </div>
-          <div class="flex justify-between border-t border-slate-200 pt-1.5 text-sm font-bold text-slate-900">
-            <span>Total Payable:</span>
-            <span id="modalTotalPayable" class="text-blue-600 text-base">₹4,404</span>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Email ID</label>
+            <input type="email" id="paxEmail" required placeholder="name@email.com" class="w-full px-3 py-2 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-600">
           </div>
         </div>
 
-        <!-- UPI QR Code Section -->
+        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs space-y-1">
+          <div class="flex justify-between">
+            <span class="font-bold text-slate-800" id="summaryFlight">Flight Details</span>
+            <span class="font-bold text-blue-600 text-sm" id="summaryPrice">₹0</span>
+          </div>
+          <div class="text-slate-500" id="summaryRoute">Route Details</div>
+        </div>
+
         <div class="text-center pt-2">
-          <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Scan & Pay Using Any UPI App</p>
-          <div class="inline-block p-2 bg-white rounded-xl border-2 border-slate-200 shadow-sm">
-            <img id="upiQrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=nikhiljain@okaxis&pn=SkyVoyage%20Travels&am=4404&cu=INR" alt="UPI QR" class="w-40 h-40 mx-auto">
+          <p class="text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Scan & Pay via Any UPI App</p>
+          <div class="inline-block p-2 bg-white rounded-xl border-2 border-slate-200">
+            <img id="upiQrCode" src="" alt="UPI QR" class="w-36 h-36 mx-auto">
           </div>
-          <p class="text-xs text-slate-500 mt-2">VPA: <span class="font-mono font-bold text-slate-700">nikhiljain@okaxis</span></p>
+          <p class="text-xs text-slate-500 mt-1">UPI ID: <span class="font-bold font-mono">nikhiljain@okaxis</span></p>
         </div>
 
-        <button onclick="simulateBookingSuccess()" class="w-full mt-3 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md transition flex items-center justify-center space-x-2">
-          <i data-lucide="check-circle" class="w-5 h-5"></i>
-          <span>I Have Completed Payment</span>
+        <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md transition flex items-center justify-center gap-2">
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+          <span>I Have Made Payment - Submit Order</span>
         </button>
-      </div>
+      </form>
     </div>
   </div>
 
-  <!-- AUTH MODALS (LOGIN / AGENT) -->
-  <div id="loginModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
-      <button onclick="toggleModal('loginModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-      <h3 class="text-lg font-bold text-slate-900 text-center mb-4">Customer Login</h3>
-      <div class="space-y-3">
-        <input type="tel" placeholder="Mobile Number" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-600">
-        <button onclick="alert('OTP sent successfully!'); toggleModal('loginModal');" class="w-full py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 text-sm">Send OTP</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="agentModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
-      <button onclick="toggleModal('agentModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-      <h3 class="text-lg font-bold text-slate-900 text-center mb-1">B2B Agent Portal</h3>
-      <p class="text-xs text-slate-500 text-center mb-4">Access wholesale fares & instant margin splits</p>
-      <div class="space-y-3">
-        <input type="text" placeholder="Agent ID / Email" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-600">
-        <input type="password" placeholder="Password" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-600">
-        <button onclick="alert('Agent logged in with wholesale access.'); toggleModal('agentModal');" class="w-full py-2.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 text-sm">Sign In to Desk</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- JAVASCRIPT LOGIC -->
   <script>
-    // Initialize Lucide Icons
     lucide.createIcons();
 
-    // Default Departure Date to tomorrow
+    let selectedBooking = {};
+
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     document.getElementById('flightDate').value = tomorrow.toISOString().split('T')[0];
 
     function toggleModal(id) {
-      const el = document.getElementById(id);
-      if (el) el.classList.toggle('hidden');
+      document.getElementById(id).classList.toggle('hidden');
     }
 
-    // Flight Search Handler
     document.getElementById('flightSearchForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-
       const from = document.getElementById('flightFrom').value.trim();
       const to = document.getElementById('flightTo').value.trim();
       const date = document.getElementById('flightDate').value;
       const pax = document.getElementById('flightPax').value;
-      const btn = document.getElementById('btnFlightSearch');
+      const btn = document.getElementById('btnSearch');
 
-      btn.innerHTML = `<span class="inline-block animate-spin mr-2">⏳</span> Searching Fares...`;
+      btn.innerText = 'Searching fares...';
       btn.disabled = true;
 
       try {
-        // RELATIVE PATH: Works seamlessly both on Render cloud and locally
-        const response = await fetch('/api/flights/search', {
+        const res = await fetch('/api/flights/search', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ origin: from, destination: to, departureDate: date, passengers: pax })
         });
-
-        const data = await response.json();
-        btn.innerHTML = `<i data-lucide="search" class="w-5 h-5"></i><span>Search Available Flights</span>`;
+        const data = await res.json();
+        btn.innerHTML = `<i data-lucide="search" class="w-4 h-4"></i><span>Search Flights</span>`;
         btn.disabled = false;
         lucide.createIcons();
 
         if (data.success && data.flights) {
-          renderFlightResults(data.flights, from, to);
+          renderFlights(data.flights, from, to, pax, date);
         } else {
-          alert('No flights found for this route.');
+          alert('No flights found.');
         }
       } catch (err) {
-        console.error('Fetch error:', err);
-        btn.innerHTML = `<i data-lucide="search" class="w-5 h-5"></i><span>Search Available Flights</span>`;
+        btn.innerHTML = `<i data-lucide="search" class="w-4 h-4"></i><span>Search Flights</span>`;
         btn.disabled = false;
         lucide.createIcons();
-        alert('Server response delay. Please retry in a moment.');
+        alert('Server taking time to respond. Please try again.');
       }
     });
 
-    function renderFlightResults(flights, origin, dest) {
+    function renderFlights(flights, origin, dest, pax, date) {
       const container = document.getElementById('flightResultsList');
-      const header = document.getElementById('resultsHeader');
-      header.classList.remove('hidden');
+      document.getElementById('resultsHeader').classList.remove('hidden');
       container.innerHTML = '';
 
       flights.forEach(f => {
-        const card = document.createElement('div');
-        card.className = 'bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col md:flex-row items-center justify-between gap-4';
-
-        card.innerHTML = `
-          <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg border border-blue-100">
-              ${f.airline.substring(0, 2).toUpperCase()}
+        const div = document.createElement('div');
+        div.className = 'bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4';
+        div.innerHTML = `
+          <div class="flex items-center space-x-3 w-full md:w-auto">
+            <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 font-bold flex items-center justify-center text-sm border border-blue-100">
+              ${f.airline.substring(0,2).toUpperCase()}
             </div>
             <div>
-              <div class="font-bold text-slate-900 text-base">${f.airline} <span class="text-xs text-slate-400 font-normal">(${f.flightNo})</span></div>
-              <div class="text-xs text-slate-500 mt-0.5">Non-Stop • ${f.duration} • Hand & Check-in Baggage Included</div>
+              <div class="font-bold text-slate-900">${f.airline} <span class="text-xs text-slate-400 font-normal">(${f.flightNo})</span></div>
+              <div class="text-xs text-slate-500">${f.duration} • Direct Non-Stop</div>
             </div>
           </div>
 
-          <div class="flex items-center space-x-8 text-center">
+          <div class="flex items-center space-x-6 text-center">
             <div>
-              <div class="text-lg font-extrabold text-slate-900">${f.depTime}</div>
-              <div class="text-xs font-semibold text-slate-500 uppercase">${origin}</div>
+              <div class="font-bold text-slate-900">${f.depTime}</div>
+              <div class="text-xs text-slate-500 uppercase">${origin}</div>
             </div>
-            <div class="flex flex-col items-center">
-              <span class="text-[11px] font-medium text-slate-400">${f.duration}</span>
-              <div class="w-24 h-0.5 bg-slate-300 relative my-1">
-                <i data-lucide="plane" class="w-3.5 h-3.5 text-blue-600 absolute -top-1.5 left-1/2 -translate-x-1/2 transform"></i>
-              </div>
-              <span class="text-[10px] font-bold text-emerald-600">DIRECT</span>
-            </div>
+            <span class="text-xs text-slate-400">➔</span>
             <div>
-              <div class="text-lg font-extrabold text-slate-900">${f.arrTime}</div>
-              <div class="text-xs font-semibold text-slate-500 uppercase">${dest}</div>
+              <div class="font-bold text-slate-900">${f.arrTime}</div>
+              <div class="text-xs text-slate-500 uppercase">${dest}</div>
             </div>
           </div>
 
-          <div class="flex items-center space-x-4 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-3 md:pt-0">
+          <div class="flex items-center space-x-4 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-2 md:pt-0">
             <div class="text-right">
-              <div class="text-2xl font-black text-slate-900">₹${f.price.toLocaleString('en-IN')}</div>
-              <div class="text-[11px] text-emerald-600 font-bold">Free Meal Included</div>
+              <div class="text-xl font-extrabold text-slate-900">₹${f.price.toLocaleString('en-IN')}</div>
+              <div class="text-[10px] text-slate-400">Total for ${pax} pax</div>
             </div>
-            <button onclick="openBooking('${f.airline}', '${f.flightNo}', '${origin}', '${dest}', '${f.depTime}', ${f.price})" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm shadow-md transition">
-              Book Now
+            <button onclick="startBooking('${f.airline}', '${f.flightNo}', '${origin}', '${dest}', '${date}', '${f.depTime}', ${f.price}, ${pax})" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-sm transition">
+              Book
             </button>
           </div>
         `;
-        container.appendChild(card);
+        container.appendChild(div);
       });
       lucide.createIcons();
     }
 
-    function openBooking(airline, flightNo, origin, dest, time, price) {
-      document.getElementById('modalFlightAirline').innerText = airline;
-      document.getElementById('modalFlightNo').innerText = flightNo;
-      document.getElementById('modalFlightRoute').innerText = `${origin} ➔ ${dest}`;
-      document.getElementById('modalFlightTime').innerText = `Departure: ${time}`;
-      document.getElementById('modalBaseFare').innerText = `₹${(price - 454).toLocaleString('en-IN')}`;
-      document.getElementById('modalTotalPayable').innerText = `₹${price.toLocaleString('en-IN')}`;
+    function startBooking(airline, flightNo, from, to, date, time, price, pax) {
+      selectedBooking = { airline, flightNo, from, to, date, time, price, pax };
 
-      // Dynamic UPI Link
+      document.getElementById('summaryFlight').innerText = `${airline} (${flightNo})`;
+      document.getElementById('summaryRoute').innerText = `${from} to ${to} | ${date} at ${time} | ${pax} Pax`;
+      document.getElementById('summaryPrice').innerText = `₹${price.toLocaleString('en-IN')}`;
+
       const upiUrl = `upi://pay?pa=nikhiljain@okaxis&pn=SkyVoyage%20Travels&am=${price}&cu=INR&tn=Booking%20${flightNo}`;
       document.getElementById('upiQrCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiUrl)}`;
 
       toggleModal('bookingModal');
     }
 
-    function simulateBookingSuccess() {
+    function handlePaymentStep(e) {
+      e.preventDefault();
+      const name = document.getElementById('paxName').value;
+      const phone = document.getElementById('paxPhone').value;
+      const email = document.getElementById('paxEmail').value;
+
       toggleModal('bookingModal');
-      alert('Payment Verified! Your official DGCA E-Ticket & PNR has been generated and sent to your email/mobile.');
+
+      // WhatsApp automated notification text
+      const orderMessage = `✈️ *NEW FLIGHT BOOKING (SkyVoyage)*%0A%0A*Lead Passenger:* ${name}%0A*Phone:* ${phone}%0A*Email:* ${email}%0A*Flight:* ${selectedBooking.airline} (${selectedBooking.flightNo})%0A*Route:* ${selectedBooking.from} ➔ ${selectedBooking.to}%0A*Date:* ${selectedBooking.date} (${selectedBooking.time})%0A*Passengers:* ${selectedBooking.pax}%0A*Amount Paid:* ₹${selectedBooking.price}%0A%0A_Payment confirmed via UPI. Kindly issue PNR/Ticket PDF._`;
+
+      alert(`Thank you, ${name}! Your booking request is placed.\nOpening WhatsApp to confirm your ticket delivery.`);
+
+      // Apna WhatsApp number yahan set karein (Country code 91 ke sath)
+      const myWhatsAppNumber = "919876543210"; 
+      window.open(`https://wa.me/${myWhatsAppNumber}?text=${orderMessage}`, '_blank');
     }
   </script>
 </body>
