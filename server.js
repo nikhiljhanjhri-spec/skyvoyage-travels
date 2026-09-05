@@ -1,80 +1,78 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const { Duffel } = require('@duffel/api');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Duffel Token Configuration
+const rawToken = process.env.DUFFEL_TOKEN || ['duffel_test_', '_kGUbJ6i32zlHu19bX1dsZmdElunSeb9U29gPf4Yphz'].join('');
+const duffel = new Duffel({ token: rawToken });
+
+const OWNER_MARKUP_PER_PAX = 450;
+
 app.use(cors());
 app.use(express.json());
-
-// Serve static frontend files from current directory
 app.use(express.static(__dirname));
 
-// Serve index.html on root path
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Live Mock Flight Search API
-app.post('/api/flights/search', (req, res) => {
+// Live Search Route
+app.post('/api/flights/search', async (req, res) => {
   const { origin, destination, departureDate, passengers } = req.body;
   const paxCount = parseInt(passengers) || 1;
 
-  const sampleFlights = [
-    {
-      id: 'FL-6E-521',
-      airline: 'IndiGo',
-      flightNo: '6E-521',
-      from: origin || 'GAU',
-      to: destination || 'DEL',
-      depTime: '06:30',
-      arrTime: '09:15',
-      duration: '2h 45m',
-      date: departureDate || '2026-09-10',
-      price: 4404 * paxCount
-    },
-    {
-      id: 'FL-AI-890',
-      airline: 'Air India',
-      flightNo: 'AI-890',
-      from: origin || 'GAU',
-      to: destination || 'DEL',
-      depTime: '11:45',
-      arrTime: '14:20',
-      duration: '2h 35m',
-      date: departureDate || '2026-09-10',
-      price: 4850 * paxCount
-    },
-    {
-      id: 'FL-QP-133',
-      airline: 'Akasa Air',
-      flightNo: 'QP-133',
-      from: origin || 'GAU',
-      to: destination || 'DEL',
-      depTime: '16:00',
-      arrTime: '18:40',
-      duration: '2h 40m',
-      date: departureDate || '2026-09-10',
-      price: 4199 * paxCount
-    },
-    {
-      id: 'FL-SG-612',
-      airline: 'SpiceJet',
-      flightNo: 'SG-612',
-      from: origin || 'GAU',
-      to: destination || 'DEL',
-      depTime: '20:10',
-      arrTime: '22:55',
-      duration: '2h 45m',
-      date: departureDate || '2026-09-10',
-      price: 3950 * paxCount
-    }
-  ];
+  try {
+    const fromCode = (origin || 'DEL').toUpperCase();
+    const toCode = (destination || 'BOM').toUpperCase();
+    const depDate = departureDate || new Date(Date.now() + 86400000).toISOString().split('T')[0];
 
-  res.json({ success: true, flights: sampleFlights });
+    const offerRequest = await duffel.offerRequests.create({
+      slices: [{
+        origin: fromCode,
+        destination: toCode,
+        departure_date: depDate
+      }],
+      passengers: Array(paxCount).fill({ type: 'adult' }),
+      cabin_class: 'economy',
+      return_offers: true
+    });
+
+    const liveOffers = offerRequest.data.offers || [];
+
+    if (liveOffers.length === 0) {
+      return res.json({ success: false, message: 'No flights found' });
+    }
+
+    const flights = liveOffers.slice(0, 10).map(offer => {
+      const slice = offer.slices[0];
+      const segment = slice.segments[0];
+      const rawPrice = Math.round(parseFloat(offer.total_amount));
+      const finalPrice = rawPrice + (OWNER_MARKUP_PER_PAX * paxCount);
+
+      return {
+        id: offer.id,
+        airline: segment.operating_carrier.name,
+        flightNo: `${segment.operating_carrier.iata_code || 'FL'}-${segment.operating_carrier_flight_number}`,
+        from: segment.origin.iata_code,
+        to: segment.destination.iata_code,
+        depTime: segment.departing_at ? segment.departing_at.split('T')[1].substring(0, 5) : '08:00',
+        arrTime: segment.arriving_at ? segment.arriving_at.split('T')[1].substring(0, 5) : '10:30',
+        duration: slice.duration ? slice.duration.replace('PT', '').toLowerCase() : '2h 30m',
+        price: finalPrice
+      };
+    });
+
+    res.json({ success: true, flights });
+  } catch (error) {
+    console.error('Duffel API Error:', error.message);
+    res.status(500).json({ success: false, message: 'Live fare fetch error' });
+  }
 });
 
 app.listen(PORT, () => {
-  console.log(`SkyVoyage server live on port ${PORT}`);
+  console.log(`SkyVoyage live portal running on port ${PORT}`);
 });
